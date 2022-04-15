@@ -7,9 +7,6 @@
   # install.packages("wordcloud")
   library(clusterProfiler)
   
-  # install.versions(c('RColorBrewer'), c('1.1.2'))
-  library(wordcloud)
-  
 # Annotations
   organism = "org.Dm.eg.db"
   #BiocManager::install(organism, character.only = TRUE)
@@ -65,11 +62,6 @@
   library(ggupset)
   upsetplot(go_enrich)
 
-  ## Wordcloud
-  wcdf<-read.table(text=go_enrich$GeneRatio, sep = "/")[1]
-  wcdf$term<-go_enrich[,2]
-  wordcloud(words = wcdf$term, freq = wcdf$V1, scale=(c(4, .1)), colors=brewer.pal(8, "Dark2"), max.words = 25)
-  
   ## Barplot
   barplot(go_enrich, 
           drop = TRUE, 
@@ -90,4 +82,16 @@
   # categorySize can be either 'pvalue' or 'geneNum'
   cnetplot(go_enrich, categorySize="pvalue", foldChange=gene_list)
   
-    
+
+# ##### Error part #####
+#   
+#   ##### Wordcloud #####
+#   # install.versions(c('RColorBrewer'), c('1.1.2'))
+#   library(wordcloud)
+#   
+#   ## Wordcloud
+#   wcdf<-read.table(text=go_enrich$GeneRatio, sep = "/")[1]
+#   wcdf$term<-go_enrich[,2]
+#   wordcloud(words = wcdf$term, freq = wcdf$V1, scale=(c(4, .1)), colors=brewer.pal(8, "Dark2"), max.words = 25)
+#   
+#       
