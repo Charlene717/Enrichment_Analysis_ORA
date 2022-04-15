@@ -19,10 +19,13 @@
     library(clusterProfiler)
     library(enrichplot)
     library(ggupset)
+    library(tidyverse)
+  
     # Annotations
     organism = "org.Dm.eg.db" ## Genome wide annotation for Fly 
     library(organism, character.only = TRUE)
   
+    
   ##### Function setting  ##### 
     ## Call function
     source("FUN_Beautify_ggplot.R")
@@ -49,6 +52,16 @@
   
   # sort the list in decreasing order (required for clusterProfiler)
   gene_list = sort(gene_list, decreasing = TRUE)
+  
+  ##---------------------------------------------##
+    ## Use pipeline
+    gene_list2 <- df %>% drop_na(.,3) %>% select(log2FoldChange) %>% 
+                  unlist() %>% as.numeric()
+    names(gene_list2) <- df %>% drop_na(.,3) %>% select(X)
+    gene_list2 = sort(gene_list2, decreasing = TRUE)
+    # Check
+    sum(gene_list==gene_list2)
+  ##---------------------------------------------##
   
  ## Gene list
   # Exctract significant results (padj < 0.05)
