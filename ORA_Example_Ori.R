@@ -94,6 +94,9 @@
   
   ## Encrichment map:
   emapplot(go_enrich)
+  # error
+  # https://github.com/YuLab-SMU/enrichplot/issues/79
+  
   
   ## Enriched GO induced graph:
   goplot(go_enrich, showCategory = 10)
