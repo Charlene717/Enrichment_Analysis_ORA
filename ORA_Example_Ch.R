@@ -38,7 +38,7 @@
   ## reading in input from deseq2
   df = read.csv("drosphila_example_de.txt", header=TRUE)
   
-  ## For the universe in clusterProfiler
+ ## For the universe in clusterProfiler
   # we want the log2 fold change 
   original_gene_list <- df$log2FoldChange
   
@@ -51,7 +51,7 @@
   # sort the list in decreasing order (required for clusterProfiler)
   gene_list = sort(gene_list, decreasing = TRUE)
   
-  ## Gene list
+ ## Gene list
   # Exctract significant results (padj < 0.05)
   sig_genes_df = subset(df, padj < 0.05)
   
@@ -78,28 +78,36 @@
                         pvalueCutoff = 0.05, 
                         qvalueCutoff = 0.10)
   
-##### Output #####
+##### Outcome #####
   ## Upset Plot
-  upsetplot(go_enrich)
-
+  Upsetplot_GO <- upsetplot(go_enrich)
+  Upsetplot_GO
+  # https://alanlee.fun/2022/01/08/introducing-upsetplot/
+  
   ## Barplot
-  barplot(go_enrich, 
-          drop = TRUE, 
-          showCategory = 10, 
-          title = "GO Biological Pathways",
-          font.size = 8)
+  Barplot_GO <- barplot(go_enrich, 
+                        drop = TRUE, 
+                        showCategory = 10, 
+                        title = "GO Biological Pathways",
+                        font.size = 8)
+  Barplot_GO 
   
   ## Dotplot
-  dotplot(go_enrich)
+  Dotplot_GO <- dotplot(go_enrich)
+  Dotplot_GO
   
   ## Encrichment map:
   emapplot(go_enrich)
+
+  
   #-----------------------------------------------------------------------------------------------#
   ## error
   ## https://github.com/YuLab-SMU/enrichplot/issues/79
   ## Solution 1
   go_enrich2 <- pairwise_termsim(go_enrich) 
-  emapplot(go_enrich2)
+  Emapplot_GO <- emapplot(go_enrich2)
+  Emapplot_GO
+  
   # ## Solution 2
   # d <- GOSemSim::godata(organism, ont = "BP")    
   # compare_cluster_GO_emap <- enrichplot::pairwise_termsim(go_enrich, semData = d,  method="Wang")
@@ -107,11 +115,30 @@
   #-----------------------------------------------------------------------------------------------#
   
   ## Enriched GO induced graph:
-  goplot(go_enrich, showCategory = 10)
+  Goplot_GO <- goplot(go_enrich, showCategory = 10)
+  Goplot_GO
   
   ## Category Netplot
   # categorySize can be either 'pvalue' or 'geneNum'
-  cnetplot(go_enrich, categorySize="pvalue", foldChange=gene_list)
+  Cnetplot_GO <- cnetplot(go_enrich, categorySize="pvalue", foldChange=gene_list)
+  Cnetplot_GO
+
+  
+##### Export #####
+  pdf(
+    file = paste0(Save.Path,"/ORA.pdf"),
+    width = 10,  height = 8
+  )
+    Upsetplot_GO
+    Barplot_GO
+    Dotplot_GO
+    Emapplot_GO
+    Goplot_GO
+    Cnetplot_GO
+  
+  dev.off()
+  
+  
   
 
 # ##### Error part (to be corrected) #####
