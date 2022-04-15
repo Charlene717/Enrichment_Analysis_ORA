@@ -20,7 +20,7 @@
     library(enrichplot)
     library(ggupset)
     # Annotations
-    organism = "org.Dm.eg.db"
+    organism = "org.Dm.eg.db" ## Genome wide annotation for Fly 
     library(organism, character.only = TRUE)
   
   ##### Function setting  ##### 
@@ -38,31 +38,33 @@
   ## reading in input from deseq2
   df = read.csv("drosphila_example_de.txt", header=TRUE)
   
-  ## we want the log2 fold change 
+  ## For the universe in clusterProfiler
+  # we want the log2 fold change 
   original_gene_list <- df$log2FoldChange
   
-  ## name the vector
+  # name the vector
   names(original_gene_list) <- df$X
   
-  ## omit any NA values 
+  # omit any NA values 
   gene_list <- na.omit(original_gene_list)
   
-  ## sort the list in decreasing order (required for clusterProfiler)
+  # sort the list in decreasing order (required for clusterProfiler)
   gene_list = sort(gene_list, decreasing = TRUE)
   
-  ## Exctract significant results (padj < 0.05)
+  ## Gene list
+  # Exctract significant results (padj < 0.05)
   sig_genes_df = subset(df, padj < 0.05)
   
-  ## From significant results, we want to filter on log2fold change
+  # From significant results, we want to filter on log2fold change
   genes <- sig_genes_df$log2FoldChange
   
-  ## Name the vector
+  # Name the vector
   names(genes) <- sig_genes_df$X
   
-  ## omit NA values
+  # omit NA values
   genes <- na.omit(genes)
   
-  ## filter on min log2fold change (log2FoldChange > 2)
+  # filter on min log2fold change (log2FoldChange > 2)
   genes <- names(genes)[abs(genes) > 2]
 
 ##### Create enrichGO object #####  
