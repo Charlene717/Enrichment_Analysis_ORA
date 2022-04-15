@@ -94,9 +94,17 @@
   
   ## Encrichment map:
   emapplot(go_enrich)
-  # error
-  # https://github.com/YuLab-SMU/enrichplot/issues/79
-  
+  #-----------------------------------------------------------------------------------------------#
+  ## error
+  ## https://github.com/YuLab-SMU/enrichplot/issues/79
+  ## Solution 1
+  go_enrich2 <- pairwise_termsim(go_enrich) 
+  emapplot(go_enrich2)
+  # ## Solution 2
+  # d <- GOSemSim::godata(organism, ont = "BP")    
+  # compare_cluster_GO_emap <- enrichplot::pairwise_termsim(go_enrich, semData = d,  method="Wang")
+  # emapplot(compare_cluster_GO_emap)
+  #-----------------------------------------------------------------------------------------------#
   
   ## Enriched GO induced graph:
   goplot(go_enrich, showCategory = 10)
