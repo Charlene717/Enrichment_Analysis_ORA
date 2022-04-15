@@ -26,8 +26,7 @@
   ##### Function setting  ##### 
     ## Call function
     source("FUN_Beautify_ggplot.R")
-    source("FUN_GSEA_ggplot.R")
-  
+
   ##### Current path and new folder setting  ##### 
     Version = paste0(Sys.Date(),"_","ORA")
     Save.Path = paste0(getwd(),"/",Version)
@@ -92,9 +91,14 @@
                         font.size = 8)
   Barplot_GO 
   
+  Barplot_GO <- Barplot_GO %>% BeautifyggPlot()
+  Barplot_GO
+  
   ## Dotplot
   Dotplot_GO <- dotplot(go_enrich)
   Dotplot_GO
+  Dotplot_GO <- Dotplot_GO %>% BeautifyggPlot(LegPos = c(0.15, 0.65))
+  Dotplot_GO 
   
   ## Encrichment map:
   emapplot(go_enrich)
@@ -143,7 +147,7 @@
   for (i in 1:length(Plot.lt)) {
     try({
       tiff(file = paste0(Save.Path,"/",names(Plot.lt)[i],"_ORA.tif"), 
-           width = 17, height = 17, units = "cm", res = 200)
+           width = 27, height = 27, units = "cm", res = 200)
       
         print(Plot.lt[i])
       
