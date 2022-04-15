@@ -125,20 +125,31 @@
 
   
 ##### Export #####
+  
+  Plot.lt <- list(Upsetplot=Upsetplot_GO, Barplot=Barplot_GO, Dotplot=Dotplot_GO,
+                  Emapplot=Emapplot_GO, Goplot=Goplot_GO, Cnetplot=Cnetplot_GO)
+  
+  
+  ## Export PDF file
   pdf(
     file = paste0(Save.Path,"/ORA.pdf"),
     width = 10,  height = 8
   )
-    Upsetplot_GO
-    Barplot_GO
-    Dotplot_GO
-    Emapplot_GO
-    Goplot_GO
-    Cnetplot_GO
+    Plot.lt
   
   dev.off()
   
-  
+  ## Export TIFF file
+  for (i in 1:length(Plot.lt)) {
+    try({
+      tiff(file = paste0(Save.Path,"/",names(Plot.lt)[i],"_ORA.tif"), 
+           width = 17, height = 17, units = "cm", res = 200)
+      
+        print(Plot.lt[i])
+      
+      graphics.off()
+    })
+  }
   
 
 # ##### Error part (to be corrected) #####
