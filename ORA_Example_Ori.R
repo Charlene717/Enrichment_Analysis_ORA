@@ -22,17 +22,6 @@
     # Annotations
     organism = "org.Dm.eg.db" ## Genome wide annotation for Fly 
     library(organism, character.only = TRUE)
-  
-  ##### Function setting  ##### 
-    ## Call function
-    source("FUN_Beautify_ggplot.R")
-    source("FUN_GSEA_ggplot.R")
-  
-  ##### Current path and new folder setting  ##### 
-    Version = paste0(Sys.Date(),"_","ORA")
-    Save.Path = paste0(getwd(),"/",Version)
-    dir.create(Save.Path)
-  
 
 ##### Prepare Input #####
   ## reading in input from deseq2
